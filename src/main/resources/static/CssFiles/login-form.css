@@ -1,0 +1,38 @@
+    .navbar {
+        background-image: url(https://png.pngtree.com/back_origin_pic/00/05/18/418888b9b1c49f62031c7799d18adc97.jpg);
+        background-size: cover;
+    }
+
+    .login-heading {
+        background-color: rgb(102 179 210);
+        color: black;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .panel {
+        margin-top: 100px;
+    }
+
+    .left {
+        float: left;
+    }
+
+    .right {
+        float: right;
+    }
+
+    .box{
+        padding-bottom:220px;
+        background-image: url(https://wallpapercave.com/wp/wp3404266.png);
+        background-size : cover;
+    }
+
+    .heading{
+        text-align: center;
+        font-weight: bold;
+        background: black;
+        color:white;
+        margin-top:3px;
+        padding-bottom:2px;
+    }

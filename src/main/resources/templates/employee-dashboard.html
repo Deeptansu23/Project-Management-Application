@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:border-radius="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Project Management</title>
+  <link rel="stylesheet" th:href="@{/CssFiles/dashboard.css}">
+  <link rel="stylesheet" href="/static/CssFiles/dashboard.css">
+</head>
+
+<body>
+  <div class="navbar" id="mynav">
+    <h2>Project Management Application</h2>
+    <div class="white-bg">
+      <h2>Future Technologies</h2>
+    </div>
+    <div>
+      <h1 style="margin :0px">Employee Interface</h1>
+    </div>
+    <div class="navbar1">
+      <ul class="navbar1-menu">
+        <li><a href="https://www.prodevans.com/">About Us</a></li>
+        <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+        <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+        </a>
+      </ul>
+    </div>
+  </div>
+  <br><br><br><br><br>
+    <table align="center" cellpadding="10" cellspacing="10" style="width: 50%; height: 200px;">
+      <tr>
+        <td>
+          <div style="text-align:center">
+            <a href="/employee/view-profile">
+              <button class="buttons button4">
+                <h2 class="cover-heading">My Profile</h2>
+              </button>
+            </a>
+          </div>
+        </td>
+
+        <td>
+          <div style="text-align:center">
+            <a th:href="@{/employee/view-project}">
+              <button class="buttons button4">
+                <h2 class="cover-heading">View Project Details</h2>
+              </button>
+            </a>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div style="text-align:center">
+            <a th:href="@{/employee/view-employees}">
+              <button class="buttons button4">
+                <h2 class="cover-heading">Employee Details</h2>
+              </button>
+            </a>
+          </div>
+        </td>
+
+        <td>
+          <div style="text-align:center">
+            <a th:href="@{/suggestion/add-suggestion}">
+              <button class="buttons button4">
+                <h2 class="cover-heading" >Help / Suggestions</h2>
+              </button>
+            </a>
+          </div>
+        </td>
+      </tr>
+
+    </table>
+      <br><br><br><br><br><br>
+
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+
+          <footer class="mastfoot mt-auto">
+            <div class="inner" style="text-align: center;">
+              <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+            </div>
+          </footer>
+        </nav>
+</body>
+</html>
+
+

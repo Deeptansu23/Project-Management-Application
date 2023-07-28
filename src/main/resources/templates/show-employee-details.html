@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CssFiles/css.css}">
+</head>
+<body class="padding">
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <nav class="navbar navbar-inverse navbar-fixed-top">
+                            <div class="card-header">
+                                <h1 style="text-align: center; color: black; font-weight: bold;">Project Management Application</h1>
+                                <div class="headerName">
+                                    <h1>My Profile</h1>
+                                </div>
+                            </div>
+                            <div class="navbar1">
+                                <ul class="navbar1-menu">
+                                    <li><a th:href="@{/app/v1/employee}">Home</a></li>
+                                    <li><a href="https://www.prodevans.com/">About Us</a></li>
+                                    <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+                                    <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </nav>
+                        <br><br><br><br><br><br><br><br><br>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 employee-details-container">
+                                    <table class="custom-table">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2" ></th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="field-label">User ID</td>
+                                            <td class="field-value" th:text="${employeeDetails.userId}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label">Full Name</td>
+                                            <td class="field-value" th:text="${employeeDetails.fullName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label">Username</td>
+                                            <td class="field-value" th:text="${employeeDetails.username}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label">Department</td>
+                                            <td class="field-value" th:text="${departments[employeeDetails.department]}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label">Contact No</td>
+                                            <td class="field-value" th:text="${employeeDetails.contactNo}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label">Project Assigned</td>
+                                            <td class="field-value" th:text="${employeeDetails.projectAssigned}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label">Project ID</td>
+                                            <td class="field-value" th:text="${employeeDetails.projectId}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field-label`">Is Active</td>
+                                            <td class="field-value" th:text="${employeeDetails.enabled}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div class="text-center">
+                                        <a th:href="${'update-profile/' + employeeDetails.userId}" class="btn btn-primary">Update</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <nav class="navbar navbar-inverse navbar-fixed-bottom">
+                                <footer class="mastfoot mt-auto">
+                                    <div class="inner" style="text-align: center;">
+                                        <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+                                    </div>
+                                </footer>
+                            </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

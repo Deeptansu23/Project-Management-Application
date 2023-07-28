@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project Management</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CssFiles/css.css}">
+</head>
+
+<body>
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <nav class="navbar navbar-inverse navbar-fixed-top">
+                            <div class="card-header">
+                                <h1 style="text-align: center; color: black; font-weight: bold;">Project Management Application</h1>
+                                <div class="headerName">
+                                    <h1>Future Technologies</h1>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="navbar1">
+                            <ul class="navbar1-menu">
+                                <li><a th:href="@{/app/v1/employee}">Home</a></li>
+                                <li><a href="https://www.prodevans.com/">About Us</a></li>
+                                <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+                                <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+                                </a>
+                            </ul>
+                        </div>
+                        <br><br><br><br><br><br><br><br><br><br><br>
+
+                        <div class="panel panel-default" style="max-width: 20cm; margin: 20px auto; ">
+                            <div class="panel-body" style="text-align: center; box-shadow: 0 0 10px rgba(255, 255, 0, 0.7);">
+                                <p style="font-size: 30px;" th:text="${successMessage}"></p>
+                                <br><br><br>
+                                <a href="/app/v1/employee" class="btn btn-primary">OK</a>
+                            </div>
+                        </div>
+
+                        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+                            <footer class="mastfoot mt-auto">
+                                <div class="inner" style="text-align: center;">
+                                    <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+                                </div>
+                            </footer>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

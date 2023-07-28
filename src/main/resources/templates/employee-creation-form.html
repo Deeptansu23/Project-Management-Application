@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CssFiles/css.css}">
+</head>
+
+<body class="padding">
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <nav class="navbar navbar-inverse navbar-fixed-top">
+                            <div class="card-header">
+                                <h1 style="text-align: center; color: black; font-weight: bold;">Project Management Application</h1>
+                                <div class="headerName">
+                                    <h1>Create Employee</h1>
+                                </div>
+                            </div>
+                            <div class="navbar1">
+                                <ul class="navbar1-menu">
+                                    <li><a th:href="@{/app/v1/admin}">Home</a></li>
+                                    <li><a href="https://www.prodevans.com/">About Us</a></li>
+                                    <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+                                    <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </nav>
+                        <br><br><br><br><br><br><br><br><br>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 form-container">
+
+                                    <form action="/admin/add-employee"  th:object="${user}" method="post" onsubmit="return validatePassword();">
+                                        <div class="form-group">
+                                            <label for="fullName">Full Name:</label>
+                                            <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Username (Email Id):</label>
+                                            <input type="email" class="form-control" id="username" name="username"
+                                                   pattern="(?=.*[a-Z])(?=.*[0-9])(?=.*[@#$%&*_])+@gmail\.com"
+                                                   title="Please enter a valid Email ID" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password:</label>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                   pattern="(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%&*_])[A-Za-z0-9@#$%&*_]{6,15}"
+                                                   title="Password must contain at least one uppercase letter, one digit, one special character (@#$%&*_),
+                                          and be between 6 and 15 characters long" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmPassword">Confirm Password:</label>
+                                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contactNo">Contact Number:</label>
+                                            <input type="text" class="form-control" id="contactNo" name="contactNo"
+                                                   pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="department">Department Name:</label>
+                                            <select id="department" name="department">
+                                                <option th:each="dept : ${departments}" th:value="${dept.departmentId}" th:text="${dept.departmentName}" th:selected="${dept.departmentId == user.department}"></option>
+                                            </select>
+
+                                        </div>
+                                        <div class="form-group" style="text-align:center">
+                                            <button type="submit" class="btn btn-primary">Add Employee</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+                            <footer class="mastfoot mt-auto">
+                                <div class="inner" style="text-align: center;">
+                                    <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+                                </div>
+                            </footer>
+                        </nav>
+                        <script>
+                            function showAlert(message, isSuccess) {
+                                var alertClass = isSuccess ? "alert-success" : "alert-danger";
+                                var alertDiv = document.createElement("div");
+                                alertDiv.className = "alert " + alertClass;
+                                alertDiv.innerHTML = message;
+                                document.body.appendChild(alertDiv);
+
+                                setTimeout(function() {
+                                    alertDiv.remove();
+                                }, 4000);
+                            }
+
+                            var urlParams = new URLSearchParams(window.location.search);
+                            if (urlParams.get("success")) {
+                                showAlert("Employee Created Successfully! ", true);
+                            }else if (urlParams.get("error")) {
+                                showAlert("Oops! Email ID Already Exist! Try with Another One!", false);
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    <script>
+                        function showAlert(message, isSuccess) {
+                            var alertClass = isSuccess ? "alert-success" : "alert-danger";
+                            var alertDiv = document.createElement("div");
+                            alertDiv.className = "alert " + alertClass;
+                            alertDiv.innerHTML = message;
+                            document.body.appendChild(alertDiv);
+
+                            setTimeout(function() {
+                                alertDiv.remove();
+                            }, 4000);
+                        }
+
+                        function validatePassword() {
+                            var password = document.getElementById("password").value;
+                            var confirmPassword = document.getElementById("confirmPassword").value;
+
+                            if (password !== confirmPassword) {
+                                showAlert("Passwords do not match!Password and  Confirm Password should be same!", false);
+                                return false;
+                            }
+
+                            return true;
+                        }
+
+                        var urlParams = new URLSearchParams(window.location.search);
+                        if (urlParams.get("success")) {
+                            showAlert("Employee Created Successfully! ", true);
+                        }
+                    </script>
+
+    </div>
+</body>
+</html>

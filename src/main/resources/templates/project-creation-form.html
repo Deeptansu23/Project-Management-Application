@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Project Management Application</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/CssFiles/css.css}">
+</head>
+
+<body>
+    <div class="content">
+      <div class="animated fadeIn">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="card-header">
+                  <h1 style="text-align: center; color: black; font-weight: bold;">Project Management Application</h1>
+                    <div class="headerName">
+                    <h1>Create Project</h1>
+                  </div>
+                </div>
+                <div class="navbar1">
+                  <ul class="navbar1-menu">
+                    <li><a th:href="@{/app/v1/admin}">Home</a></li>
+                    <li><a href="https://www.prodevans.com/">About Us</a></li>
+                    <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+                    <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+                    </a>
+                  </ul>
+                </div>
+              </nav>
+              <br><br><br><br><br><br><br><br>
+
+                <div class="card-body" style="overflow-x:auto;">
+                    <div class="scrollable-table1">
+
+                      <form method="post" action="/project/save-project">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <br><br>
+                              <label class="control-label" for="organization_name">
+                                Organization Name </label>
+                              <input id="organization_name" class="form-control"
+                                     name="organizationName" required autofocus="autofocus"
+                                     placeholder="Organization Name" /> <br>
+
+                              <label class="control-label" for="requirements">
+                                Requirements </label>
+                              <input id="requirements" class="form-control"
+                                     name="requirements" required autofocus="autofocus"
+                                     placeholder="Requirements" /> <br>
+
+                                <label class="control-label" for="project_manager">
+                                    Project Manager
+                                </label>
+                                <select id="project_manager" class="form-control" name="projectManager" required autofocus="autofocus">
+                                    <option value="" disabled selected>Select Project Manager</option>
+                                    <option th:each="manager : ${managers}" th:value="${manager.fullName}" th:text="${manager.fullName}" ></option>
+                                </select><br>
+
+                                <label class="control-label" for="solution_architect">
+                                    Solution Architect
+                                </label>
+                                <select id="solution_architect" class="form-control" name="solutionArchitect" required autofocus="autofocus">
+                                    <option value="" disabled selected>Select Solution Architect</option>
+                                    <option th:each="architect : ${architects}" th:value="${architect.fullName}" th:text="${architect.fullName}"></option>
+                                </select><br>
+
+                              <label class="control-label" for="date_received">
+                                Date Received </label>
+                              <input id="date_received" class="form-control" name="dateCreated"
+                                     required autofocus="autofocus" placeholder="Date Received"
+                                     th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" /><br>
+
+                              <label class="control-label" for="date_expected_to_complete">
+                                Date Expected to Complete </label>
+                              <input id="date_expected_to_complete" class="form-control" name="deadline"
+                                     required autofocus="autofocus" placeholder="Date Expected to Complete"
+                                     type="date" th:attr="min=${#dates.format(#dates.createToday(), 'yyyy-MM-dd')}" /><br>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="form-group" style="text-align: center">
+                          <button type="submit" class="btn btn-primary">
+                            Add Employees </button>
+                        </div>
+                      </form>
+                    </div>
+
+                      <nav class="navbar navbar-inverse navbar-fixed-bottom">
+                        <footer class="mastfoot mt-auto">
+                          <div class="inner" style="text-align: center;">
+                            <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+                          </div>
+                        </footer>
+                      </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

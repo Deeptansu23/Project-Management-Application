@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Project Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CssFiles/css.css}">
+</head>
+
+<body class="padding">
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <nav class="navbar navbar-inverse navbar-fixed-top">
+                            <div class="card-header">
+                                <h1 style="text-align: center; color: black; font-weight: bold;">Project Management Application</h1>
+                                <div class="headerName">
+                                    <h1>Update Project</h1>
+                                </div>
+                            </div>
+                            <div class="navbar1">
+                                <ul class="navbar1-menu">
+                                    <li><a th:href="@{/app/v1/admin}">Home</a></li>
+                                    <li><a href="https://www.prodevans.com/">About Us</a></li>
+                                    <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+                                    <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </nav>
+                        <br><br><br><br><br><br><br><br><br><br><br><br>
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-md-offset-3 form-container">
+                                        <form th:action="@{/project/update-project}" method="post" th:object="${project}">
+                                            <input type="text" name="projectId" th:field="*{projectId}" hidden="hidden" >
+
+                                            <div class="form-group">
+                                                <label for="organizationName">Organization Name:</label>
+                                                <input type="text" class="form-control" id="organizationName" name="organizationName" th:field="*{organizationName}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="requirements">Requirements:</label>
+                                                <input type="text" class="form-control" id="requirements" name="requirements" th:field="*{requirements}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="deadline">Date Expected to Complete :</label>
+                                            <input  class="form-control" id="deadline" name="deadline" type="date"
+                                                   th:field= "*{deadline}" />
+                                            </div>
+                                            <input type="hidden" class="form-control" id="projectManager" name="projectManager" th:field="*{projectManager}" hidden="hidden">
+                                            <input type="hidden" class="form-control" id="solutionArchitect" name="solutionArchitect" th:field="*{solutionArchitect}" hidden="hidden">
+                                            <input type="hidden" class="form-control" id="dateCreated" name="dateCreated" th:field="*{dateCreated}" hidden="hidden">
+                                            <input type="hidden" class="form-control" id="noOfEmployeesAllocated" name="noOfEmployeesAllocated" th:field="*{noOfEmployeesAllocated}" hidden="hidden">
+
+
+                                            <div  class="form-group" style="text-align:center">
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </form>
+                                        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+
+                                            <footer class="mastfoot mt-auto">
+                                                <div class="inner" style="text-align: center;">
+                                                    <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+                                                </div>
+                                            </footer>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function showAlert() {
+                                    alert("Project updated successfully!");
+                                }
+
+                                var urlParams = new URLSearchParams(window.location.search);
+                                if (urlParams.get("success")) {
+                                    showAlert();
+                                }
+                            </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

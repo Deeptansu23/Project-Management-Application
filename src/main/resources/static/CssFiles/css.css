@@ -1,0 +1,209 @@
+        .navbar {
+          background-image: url(https://wallpapercave.com/wp/wp3404266.png);
+          background-size: cover;
+        }
+
+        .headerName{
+            text-align: center;
+            font-weight: bold;
+            background: black;
+            color:white;
+            padding-bottom:2px
+        }
+
+        .navbar1 {
+          background-image: url(https://wallpapercave.com/wp/wp3404266.png);
+          background-size: cover;
+          text-align: right;
+          padding : 10px
+        }
+
+        .navbar1-menu {
+          font-weight: bold;
+          color: black;
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .navbar1-menu li {
+          display: inline-block;
+          margin-left: 20px;
+        }
+
+        .navbar1-menu li:first-child {
+          margin-left: 0;
+        }
+
+        .navbar1-menu li a {
+          text-decoration: none;
+          color: #333;
+          font-size: 20px;
+          padding: 10px;
+        }
+
+        .navbar1-menu li a:hover {
+          background-color: #ddd;
+          border-radius: 5px;
+        }
+
+        .scrollable-table {
+            height : 500px;
+            overflow-y: auto;
+         }
+
+        .scrollable-table1 {
+            height : 650px;
+            overflow-y: auto;
+        }
+
+        .padding {
+            padding-top: 70px;
+        }
+
+        .btn-update {
+                color: #fff;
+                background-color: #007bff;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 3px;
+                text-decoration: none;
+                display: inline-block;
+        }
+
+        .btn-delete {
+            color: #fff;
+            background-color: #dc3545;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .form-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            margin-right: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-back {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                width: 100%;
+            }
+        }
+
+        .login-heading {
+                background-color: #FFFF00;
+                color: black;
+                padding: 5px;
+                text-align: center;
+        }
+
+        .panel {
+            margin-top: 60px;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 1);
+        }
+
+
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .employee-details-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .employee-details-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .custom-table {
+            width: 100%;
+        }
+
+        .custom-table th {
+            text-align: left;
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+        }
+
+        .custom-table td {
+            padding: 10px 20px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .field-label {
+            font-weight: bold;
+        }
+
+        .field-value {
+            text-align: right;
+        }
+
+        .custom-table {
+            width: 100%;
+        }
+
+        .custom-table th {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 768px) {
+            .employee-details-container {
+                width: 100%;
+            }
+        }
+
+        .heading{
+            text-align: center;
+            font-weight: bold;
+            background: black;
+            color:white;
+            margin-top:3px;
+            padding-bottom:2px;
+        }

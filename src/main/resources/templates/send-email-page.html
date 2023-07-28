@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/CssFiles/css.css}">
+</head>
+
+<body class="padding">
+    <div class="content">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <nav class="navbar navbar-inverse navbar-fixed-top">
+                            <div class="card-header">
+                                <h1 style="text-align: center; color: black; font-weight: bold;">Project Management Application</h1>
+                                <div class="headerName">
+                                    <h1>Send Email</h1>
+                                </div>
+                            </div>
+                            <div class="navbar1">
+                                <ul class="navbar1-menu">
+                                    <li><a th:href="@{/app/v1/admin}">Home</a></li>
+                                    <li><a href="https://www.prodevans.com/">About Us</a></li>
+                                    <li><a href="https://www.prodevans.com/contactus">Contact Us</a></li>
+                                    <li><a th:href="@{/app/v1/home-page}">Logout</a></li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </nav>
+                        <br><br><br><br><br><br><br><br><br><br>
+
+                        <div class="employee-details-container">
+                            <div style="text-align: center;">
+                                <h3>Write Email Here</h3>
+                                <form th:action="@{/admin/send-email-employee}" method="post">
+                                    <input type="hidden" name="userId" th:field="*{user.userId}" />
+                                    <input type="hidden" name="username" th:field="*{user.username}" />
+                                    <input type="hidden" name="fullName" th:field="*{user.fullName}" />
+                                    <textarea id="messageInput" name="message" rows="10" style="width: 15cm; border-radius: 15px"></textarea>
+                                    <br>
+                                    <button id="sendButton" class="btn btn-primary" type="submit">Send</button>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+
+                            <footer class="mastfoot mt-auto">
+                                <div class="inner" style="text-align: center;">
+                                    <h4 style=" font-weight: bold;">Project Management Application by <a href="https://www.prodevans.com/">Future Technologies</a>.</h4>
+                                </div>
+                            </footer>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
