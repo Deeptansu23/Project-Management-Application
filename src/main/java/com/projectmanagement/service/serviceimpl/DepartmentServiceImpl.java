@@ -33,18 +33,13 @@ public class DepartmentServiceImpl {
 
     private static final Logger logger = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
-    public void incrementEmployeesAllocated(String departmentId, boolean projectAssigned) {
+    public void incrementEmployeesAllocated(String departmentId) {
         DepartmentDetails department = departmentRepository.findByDepartmentId(departmentId);
-        if (department != null && projectAssigned ) {
-            department.setNoOfEmployees(department.getNoOfEmployees() +1);
-            department.setEmployeesAllocated(department.getEmployeesAllocated() + 1);
-            departmentRepository.save(department);
-        }
-        else{
+
             department.setNoOfEmployees(department.getNoOfEmployees() +1);
             department.setEmployeesAvailable(department.getEmployeesAvailable() + 1);
             departmentRepository.save(department);
-        }
+
     }
 
     public void saveDepartment(DepartmentDetails department) {

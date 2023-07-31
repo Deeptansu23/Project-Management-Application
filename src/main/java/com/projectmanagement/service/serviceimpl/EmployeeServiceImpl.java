@@ -35,15 +35,11 @@ public class EmployeeServiceImpl {
                 .filter(user->user.getUserId().equalsIgnoreCase(id)).findFirst().get();
     }
 
-    public void updateEmployee(User user) {
-        appUserRepository.save(new AppUserRole("Employee", appUserPermission.findAll().stream()
-                .filter(perm -> perm.getPermission().equalsIgnoreCase("Employee_read"))
-                .collect(Collectors.toSet())));
-        AppUserRole userRole1 = appUserRepository.findAll().stream().filter(role ->
-                role.getRole().equalsIgnoreCase("Employee")).findFirst().get();
-        user.setRole(userRole1);
-        user.setPermissions(userRole1.getPermissions());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void updateEmployee(User users) {
+        User user = userRepository.findByUserId(users.getUserId());
+        user.setFullName(users.getFullName());
+        user.setContactNo(users.getContactNo());
+        user.setPassword(passwordEncoder.encode(users.getPassword()));
         userRepository.save(user);
         logger.info(String.valueOf(user));
     }

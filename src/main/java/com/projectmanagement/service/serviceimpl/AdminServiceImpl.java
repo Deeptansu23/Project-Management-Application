@@ -5,6 +5,7 @@ import com.projectmanagement.entity.AppUserPermission;
 import com.projectmanagement.entity.AppUserRole;
 import com.projectmanagement.entity.DepartmentDetails;
 import com.projectmanagement.entity.User;
+import com.projectmanagement.exception.NoSuchUserExistException;
 import com.projectmanagement.id.NextUserId;
 import com.projectmanagement.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,9 @@ public class AdminServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         saveUserDetail();
-        User user=userRepository.findAll().stream().filter(user1->user1.getUsername().equalsIgnoreCase(username)).findFirst().get();
+        User user=userRepository.findAll().stream()
+                .filter(user1->user1.getUsername().equalsIgnoreCase(username))
+                .findFirst().get();
         UserDto userDto=new UserDto(user);
 
         return userDto;
@@ -94,7 +97,11 @@ public class AdminServiceImpl implements UserDetailsService {
     }
 
     public User findUserByUserId(String userId) {
-        return userRepository.findByUserId(userId);
+        try{
+            return userRepository.findByUserId(userId);
+        }catch (NoSuchUserExistException error){
+             throw new NoSuchUserExistException("User with userId '" + userId + "' not found.");
+        }
     }
 
     public void deleteEmployee(String userId) {
@@ -111,11 +118,11 @@ public class AdminServiceImpl implements UserDetailsService {
         userRepository.delete(employee);
     }
 
-    public void updateEmployee(User user) {
-        AppUserRole userRole1 = appUserRepository.findAll().stream().filter(role ->
-                role.getRole().equalsIgnoreCase("Employee")).findFirst().get();
-        user.setRole(userRole1);
-        user.setPermissions(userRole1.getPermissions());
+    public void updateEmployee(User users) {
+        User user = userRepository.findByUserId(users.getUserId());
+        user.setUsername(users.getUsername());
+        user.setFullName(users.getFullName());
+        user.setContactNo(users.getContactNo());
         userRepository.save(user);
     }
 
@@ -142,7 +149,11 @@ public class AdminServiceImpl implements UserDetailsService {
     }
 
     public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        try{
+            return userRepository.findByUsername(username);
+        }catch (NoSuchUserExistException message){
+            throw message;
+        }
     }
 
     public void changeUserPassword(String username, String password) {

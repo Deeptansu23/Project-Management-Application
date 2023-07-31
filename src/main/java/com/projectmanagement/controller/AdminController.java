@@ -52,7 +52,7 @@ public class AdminController {
             emailService.sendEmail(user1);
 
             if (user.getDepartment() != null) {
-                departmentService.incrementEmployeesAllocated(user.getDepartment(), user.isProjectAssigned());
+                departmentService.incrementEmployeesAllocated(user.getDepartment());
             }
 
             return "redirect:/admin/add-employee?success=true";
