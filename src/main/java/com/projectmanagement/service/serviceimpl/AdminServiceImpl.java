@@ -5,7 +5,9 @@ import com.projectmanagement.entity.AppUserPermission;
 import com.projectmanagement.entity.AppUserRole;
 import com.projectmanagement.entity.DepartmentDetails;
 import com.projectmanagement.entity.User;
+import com.projectmanagement.exception.NoSuchProjectExistException;
 import com.projectmanagement.exception.NoSuchUserExistException;
+import com.projectmanagement.exception.UserAlreadyExistException;
 import com.projectmanagement.id.NextUserId;
 import com.projectmanagement.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,26 +66,36 @@ public class AdminServiceImpl implements UserDetailsService {
                     }
     }
 
-    public void saveEmployee(User user) {
-        AppUserRole userRole1 = appUserRepository.findAll().stream().filter(role ->
-                role.getRole().equalsIgnoreCase("Employee")).findFirst().get();
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);
-        user.setEnabled(true);
-        user.setProjectAssigned(false);
-        user.setProjectId("Not Assigned");
-        user.setOtp(0);
-        user.setRole(userRole1);
-        user.setPermissions(userRole1.getPermissions());
-        userRepository.save(user);
-        logger.info(String.valueOf(user));
+    public void saveEmployee(User user)throws UserAlreadyExistException {
+        try{
+            AppUserRole userRole1 = appUserRepository.findAll().stream().filter(role ->
+                    role.getRole().equalsIgnoreCase("Employee")).findFirst().get();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setAccountNonExpired(true);
+            user.setAccountNonLocked(true);
+            user.setCredentialsNonExpired(true);
+            user.setEnabled(true);
+            user.setProjectAssigned(false);
+            user.setProjectId("Not Assigned");
+            user.setOtp(0);
+            user.setRole(userRole1);
+            user.setPermissions(userRole1.getPermissions());
+            userRepository.save(user);
+            logger.info(String.valueOf(user));
+        }catch(UserAlreadyExistException e){
+            throw new UserAlreadyExistException("user already exist exception" +user);
+        }
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        try {
+            return userRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
+
 
     public String generateCustomUserId() {
         NextUserId nextId = idRepository.findById("userId").orElse(new NextUserId("userId", 0));
@@ -93,7 +107,8 @@ public class AdminServiceImpl implements UserDetailsService {
     }
 
     public User getData(String username){
-        return userRepository.findAll().stream().filter(user->user.getUsername().equalsIgnoreCase(username)).findFirst().get();
+        return userRepository.findAll().stream()
+                .filter(user->user.getUsername().equalsIgnoreCase(username)).findFirst().get();
     }
 
     public User findUserByUserId(String userId) {
@@ -119,11 +134,16 @@ public class AdminServiceImpl implements UserDetailsService {
     }
 
     public void updateEmployee(User users) {
-        User user = userRepository.findByUserId(users.getUserId());
-        user.setUsername(users.getUsername());
-        user.setFullName(users.getFullName());
-        user.setContactNo(users.getContactNo());
-        userRepository.save(user);
+        try{
+            User user = userRepository.findByUserId(users.getUserId());
+            user.setUsername(users.getUsername());
+            user.setFullName(users.getFullName());
+            user.setContactNo(users.getContactNo());
+            userRepository.save(user);
+        } catch (NoSuchUserExistException e){
+            System.out.println("There is no user exist with this user");
+            throw  new NoSuchUserExistException("There is no user exist with this" +users);
+        }
     }
 
     public List<User> getAllManagers() {
@@ -140,19 +160,24 @@ public class AdminServiceImpl implements UserDetailsService {
 
     public boolean IsUserExist(String username) {
         User exist = userRepository.findByUsername(username);
-        if (exist !=null)  return true;
+        if (exist !=null)
+            return true;
         return false;
     }
 
     public List<User> getEmployeeByProjectId(String projectId) {
-        return userRepository.findByProjectId(projectId);
+        try{
+            return userRepository.findByProjectId(projectId);
+        }catch (NoSuchProjectExistException e){
+            throw new NoSuchProjectExistException("Project is not available" +projectId);
+        }
     }
 
     public User findUserByUsername(String username) {
         try{
             return userRepository.findByUsername(username);
         }catch (NoSuchUserExistException message){
-            throw message;
+            throw new NoSuchUserExistException("No user name is there " + username);
         }
     }
 

@@ -53,15 +53,6 @@
                                                 <label for="contactNumber">Contact Number:</label>
                                                 <input type="text" class="form-control" id="contactNumber" name="contactNumber" th:field="*{contactNo}">
                                             </div>
-                                            <input type="hidden" class="form-control" id="department" name="password" th:field="*{password}" hidden="hidden">
-                                            <input type="hidden" class="form-control" id="department" name="permissions" th:field="*{permissions}" hidden="hidden">
-                                            <input type="hidden" class="form-control" id="department" name="isAccountNonExpired" th:field="*{AccountNonExpired}" hidden="hidden">
-                                            <input type="hidden" class="form-control" id="department" name="isAccountNonLocked" th:field="*{AccountNonLocked}" hidden="hidden">
-                                            <input type="hidden" class="form-control" id="department" name="isCredentialsNonExpired" th:field="*{CredentialsNonExpired}" hidden="hidden">
-                                            <input type="hidden" class="form-control" id="department" name="isEnabled" th:field="*{Enabled}">
-                                            <input type="hidden" class="form-control" id="department" name="projectAssigned" th:field="*{projectAssigned}" >
-                                            <input type="hidden" class="form-control" id="department" name="projectId" th:field="*{projectId}" >
-                                            <input type="hidden" class="form-control" id="department" name="department" th:field="*{department}">
                                             <div  class="form-group" style="text-align:center">
                                                 <button type="submit" class="btn btn-primary">Update</button>
                                             </div>
@@ -77,16 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                                <script>
-                                    function showAlert() {
-                                        alert("Employee updated successfully!");
-                                    }
 
-                                    var urlParams = new URLSearchParams(window.location.search);
-                                    if (urlParams.get("success")) {
-                                        showAlert();
-                                    }
-                                </script>
                     </div>
                 </div>
             </div>

@@ -83,8 +83,13 @@ public class AdminController {
 
     @PostMapping("/update-employee")
     public String update(@ModelAttribute User user){
-        userService.updateEmployee(user);
-        return "redirect:/admin/update-success";
+        boolean isExist = userService.IsUserExist(user.getUsername());   // Checking User is existed or not
+        if(!isExist) {
+            userService.updateEmployee(user);
+            return "redirect:/admin/update-success";
+        }
+
+        else return "redirect:/admin/update-failed";
     }
 
     @GetMapping("/delete-employee/{userId}")
@@ -127,6 +132,13 @@ public class AdminController {
     @GetMapping("/update-success")
     public String showSuccessPage(Model model) {
         String successMessage = "Employee Details Updated Successfully";
+        model.addAttribute("successMessage", successMessage);
+        return "success-page-admin";
+    }
+
+    @GetMapping("/update-failed")
+    public String showFailedPage(Model model) {
+        String successMessage = "Username already exist please try with another one!";
         model.addAttribute("successMessage", successMessage);
         return "success-page-admin";
     }

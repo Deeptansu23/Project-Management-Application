@@ -4,6 +4,8 @@ package com.projectmanagement.service.serviceimpl;
 import com.projectmanagement.dto.DepartmentDto;
 import com.projectmanagement.entity.DepartmentDetails;
 import com.projectmanagement.entity.User;
+import com.projectmanagement.exception.DepartmentAlreadyExistException;
+import com.projectmanagement.exception.NoSuchDepartmentExistException;
 import com.projectmanagement.id.NextDepartmentId;
 import com.projectmanagement.repository.DepartmentRepository;
 import com.projectmanagement.repository.NextDepartmentIdRepository;
@@ -43,8 +45,12 @@ public class DepartmentServiceImpl {
     }
 
     public void saveDepartment(DepartmentDetails department) {
-        departmentRepository.save(department);
-        logger.info(String.valueOf(department));
+       try{
+           departmentRepository.save(department);
+           logger.info(String.valueOf(department));
+       }catch (DepartmentAlreadyExistException e){
+           throw new DepartmentAlreadyExistException("department already exist"+ department);
+       }
     }
 
     public List<DepartmentDetails> getAllDepartment() {
@@ -127,11 +133,15 @@ public class DepartmentServiceImpl {
     }
 
     private void updateDepartmentDetails(DepartmentDetails department, int employeesRequiredCount) {
-        int newEmployeesAvailable = department.getEmployeesAvailable() - employeesRequiredCount;
-        int newEmployeesAllocated = department.getEmployeesAllocated() + employeesRequiredCount;
-        department.setEmployeesAvailable(newEmployeesAvailable);
-        department.setEmployeesAllocated(newEmployeesAllocated);
-        departmentRepository.save(department);
+        try{
+            int newEmployeesAvailable = department.getEmployeesAvailable() - employeesRequiredCount;
+            int newEmployeesAllocated = department.getEmployeesAllocated() + employeesRequiredCount;
+            department.setEmployeesAvailable(newEmployeesAvailable);
+            department.setEmployeesAllocated(newEmployeesAllocated);
+            departmentRepository.save(department);
+        } catch (NoSuchDepartmentExistException e){
+            throw new NoSuchDepartmentExistException("No department is exist "+ department);
+        }
     }
 
     private DepartmentDto convertToDto(DepartmentDetails department) {
@@ -149,8 +159,12 @@ public class DepartmentServiceImpl {
     }
 
     public Object findManagerByName(String manager) {
-        DepartmentDetails departmentDetails = departmentRepository.findByDepartmentName("Manager");
-        return departmentDetails.getDepartmentId();
+       try{
+           DepartmentDetails departmentDetails = departmentRepository.findByDepartmentName("Manager");
+           return departmentDetails.getDepartmentId();
+       }catch (NoSuchDepartmentExistException e){
+           throw new NoSuchDepartmentExistException("there is no manager exist"+manager);
+       }
 
     }
 
