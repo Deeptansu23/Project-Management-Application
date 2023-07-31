@@ -57,7 +57,8 @@ public class DepartmentServiceImpl {
     }
 
     public String generateCustomDepartmentId() {
-        NextDepartmentId nextId = idRepository.findById("departmentId").orElse(new NextDepartmentId("departmentId", 0));
+        NextDepartmentId nextId = idRepository.findById("departmentId")
+                .orElse(new NextDepartmentId("departmentId", 0));
         int currentNextId = nextId.getNextDepartmentId();
         String sequentialId = String.format("%03d", currentNextId + 1);
         nextId.setNextDepartmentId(currentNextId + 1);

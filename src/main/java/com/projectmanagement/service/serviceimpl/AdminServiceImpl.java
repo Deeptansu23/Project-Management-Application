@@ -55,7 +55,7 @@ public class AdminServiceImpl implements UserDetailsService {
             appUserRepository.save(new AppUserRole("Admin", appUserPermission.findAll().stream().collect(Collectors.toSet())));
             AppUserRole userRole = appUserRepository.findAll().stream().filter(role ->
                     role.getRole().equalsIgnoreCase("Admin")).findFirst().get();
-            userRepository.save(new User("Kamil Praseej","kamilpraseej742@gmail.com", passwordEncoder.encode("Kamil@123"), userRole, userRole.getPermissions(), true, true, true, true,"9645330312", "D-100", false,"Not Assigned",0));
+            userRepository.save(new User("Deeptansu kumar Sahu","deeptansu23@gmail.com", passwordEncoder.encode("Deepu@123"), userRole, userRole.getPermissions(), true, true, true, true,"9645330312", "D-100", false,"Not Assigned",0));
                     }
     }
 
@@ -70,7 +70,7 @@ public class AdminServiceImpl implements UserDetailsService {
         user.setProjectAssigned(false);
         user.setProjectId("Not Assigned");
         user.setOtp(0);
-        user.setRole(user.getRole());
+        user.setRole(userRole1);
         user.setPermissions(userRole1.getPermissions());
         userRepository.save(user);
         logger.info(String.valueOf(user));

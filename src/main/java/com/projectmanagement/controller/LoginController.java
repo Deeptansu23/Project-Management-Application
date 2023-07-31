@@ -37,9 +37,13 @@ public class LoginController {
         String role = users.getRole().getRole();
 
         if(users.getOtp() == userDetail.getOtp() && role.equals("Employee")) {
+            users.setOtp(0);
+            userRepository.save(users);
             return "redirect:/app/v1/employee";
         }
         else if(users.getOtp() == userDetail.getOtp() && role.equals("Admin")){
+            users.setOtp(0);
+            userRepository.save(users);
             return "redirect:/app/v1/admin";
         }
         else

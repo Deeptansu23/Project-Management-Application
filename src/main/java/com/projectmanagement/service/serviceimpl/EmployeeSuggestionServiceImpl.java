@@ -24,7 +24,9 @@ public class EmployeeSuggestionServiceImpl {
     }
 
     public String generateCustomDepartmentId() {
-        NextSuggestionId nextId = idRepository.findById("suggestionId").orElse(new NextSuggestionId("suggestionId", 0));
+        NextSuggestionId nextId = idRepository.findById("suggestionId")
+                .orElse(new NextSuggestionId("suggestionId", 0));
+
         int currentNextId = nextId.getNextSuggestionId();
         String sequentialId = String.format("%03d", currentNextId + 1);
         nextId.setNextSuggestionId(currentNextId + 1);
