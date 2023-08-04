@@ -49,7 +49,6 @@ public class AdminServiceImpl implements UserDetailsService {
                 .filter(user1->user1.getUsername().equalsIgnoreCase(username))
                 .findFirst().get();
         UserDto userDto=new UserDto(user);
-
         return userDto;
     }
 
@@ -104,11 +103,6 @@ public class AdminServiceImpl implements UserDetailsService {
         nextId.setNextUserId(currentNextId + 1);
         idRepository.save(nextId);
         return "FT-" + sequentialId;
-    }
-
-    public User getData(String username){
-        return userRepository.findAll().stream()
-                .filter(user->user.getUsername().equalsIgnoreCase(username)).findFirst().get();
     }
 
     public User findUserByUserId(String userId) {

@@ -77,7 +77,7 @@ public class AdminController {
 
     @GetMapping("/update-employee/{username}")
     public String updateUser(@PathVariable String username, Model model) {
-        model.addAttribute("user", userService.getData(username));
+        model.addAttribute("user", userService.findUserByUsername(username));
         return "update-employee-details";
     }
 
@@ -114,7 +114,7 @@ public class AdminController {
 
     @GetMapping("/send-email-employee/{username}")
     public String fetchEmail(@PathVariable String username, Model model) {
-        model.addAttribute("user", userService.getData(username));
+        model.addAttribute("user", userService.findUserByUsername(username));
         return "send-email-page";
     }
 

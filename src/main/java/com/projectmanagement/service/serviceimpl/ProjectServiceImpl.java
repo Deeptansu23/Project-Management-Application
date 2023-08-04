@@ -1,6 +1,7 @@
 package com.projectmanagement.service.serviceimpl;
 
 import com.projectmanagement.entity.ProjectDetails;
+import com.projectmanagement.exception.NoSuchProjectExistException;
 import com.projectmanagement.id.NextProjectId;
 import com.projectmanagement.repository.NextProjectIdRepository;
 import com.projectmanagement.repository.ProjectRepository;
@@ -22,9 +23,14 @@ public class ProjectServiceImpl {
     private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     public void saveProjectDetails(ProjectDetails projectDetails) {
-        projectRepository.save(projectDetails);
-        logger.info(String.valueOf(projectDetails));
+        try {
+            projectRepository.save(projectDetails);
+            logger.info(String.valueOf(projectDetails));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     public List<ProjectDetails> getAllProjects() {
         return projectRepository.findAll();
@@ -42,23 +48,42 @@ public class ProjectServiceImpl {
     }
 
     public ProjectDetails getData(String id){
-        return projectRepository.findAll().stream().filter(usr->usr.getProjectId().equalsIgnoreCase(id)).findFirst().get();
+        return projectRepository.findAll().stream()
+                .filter(usr->usr.getProjectId().equalsIgnoreCase(id)).findFirst().get();
     }
 
     public ProjectDetails findByProjectId(String projectId) {
-        return projectRepository.findByProjectId(projectId);
-    }
-
-    public void updateProjectDetails(String projectId, int totalEmployeesAllocated) {
-        ProjectDetails projectDetails = projectRepository.findByProjectId(projectId);
-
-        if (projectDetails != null) {
-            projectDetails.setNoOfEmployeesAllocated(totalEmployeesAllocated);
-            projectRepository.save(projectDetails);
+        try {
+            return projectRepository.findByProjectId(projectId);
+        } catch (Exception e) {
+            throw new NoSuchProjectExistException("there is no such project exist" +projectId);
         }
     }
 
-    public ProjectDetails getProjectDetails(String projectId) {
-       return projectRepository.findByProjectId(projectId);
+
+    public void updateProjectDetails(String projectId, int totalEmployeesAllocated) throws NoSuchProjectExistException{
+        try {
+            ProjectDetails projectDetails = projectRepository.findByProjectId(projectId);
+
+            if (projectDetails != null) {
+                projectDetails.setNoOfEmployeesAllocated(totalEmployeesAllocated);
+                projectRepository.save(projectDetails);
+            }
+        } catch (Exception e) {
+            throw new NoSuchProjectExistException("There is no project exist" +projectId);
+        }
     }
+
+
+
+    public ProjectDetails getProjectDetails(String projectId) throws NoSuchProjectExistException {
+        ProjectDetails projectDetails = projectRepository.findByProjectId(projectId);
+
+        if (projectDetails != null) {
+            return projectDetails;
+        } else {
+            throw new NoSuchProjectExistException("Project with ID " + projectId + " not found.");
+        }
+    }
+
 }

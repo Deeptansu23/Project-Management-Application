@@ -3,15 +3,13 @@ package com.projectmanagement.controller;
 import com.projectmanagement.dto.DepartmentDto;
 import com.projectmanagement.entity.DepartmentDetails;
 import com.projectmanagement.entity.ProjectDetails;
+import com.projectmanagement.exception.DepartmentAlreadyExistException;
 import com.projectmanagement.service.serviceimpl.DepartmentServiceImpl;
 import com.projectmanagement.service.serviceimpl.ProjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -32,21 +30,25 @@ public class DepartmentController {
     }
 
     @PostMapping("/add-department")
-    public String addDepartmentSubmit(
-            @ModelAttribute DepartmentDetails department) {
+    public String addDepartmentSubmit(@ModelAttribute DepartmentDetails department) {
         boolean isExist = departmentService.departmentExists(department.getDepartmentName());
         if (isExist) {
-            return "redirect:/department/add-department?error=true";
-        } else if(!isExist) {
+            throw new DepartmentAlreadyExistException("Department already exists!");
+        } else {
             String customId = departmentService.generateCustomDepartmentId();
             department.setDepartmentId(customId);
             departmentService.saveDepartment(department);
             return "redirect:/department/add-department?success=true";
         }
-        else
-            return "redirect:/department/add-department";
-
     }
+
+    @ExceptionHandler(DepartmentAlreadyExistException.class)
+    public String departmentAlreadyExistException(Model model){
+        String message = "Department already exist";
+        model.addAttribute("successMessage", message);
+        return "success-page-admin";
+    }
+
 
     @GetMapping("/view-bench-pool")
     public String getAllDepartments(Model model) {

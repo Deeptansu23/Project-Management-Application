@@ -10,6 +10,7 @@ import com.projectmanagement.id.NextDepartmentId;
 import com.projectmanagement.repository.DepartmentRepository;
 import com.projectmanagement.repository.NextDepartmentIdRepository;
 import com.projectmanagement.repository.UserRepository;
+import org.checkerframework.checker.formatter.qual.ReturnsFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,10 @@ public class DepartmentServiceImpl {
     }
 
     public void saveDepartment(DepartmentDetails department) {
-       try{
+       String departmentName = department.getDepartmentName();
+       
+
+        try{
            departmentRepository.save(department);
            logger.info(String.valueOf(department));
        }catch (DepartmentAlreadyExistException e){
@@ -74,7 +78,9 @@ public class DepartmentServiceImpl {
                 .collect(Collectors.toList());
     }
 
-    public boolean checkEmployeesAvailability(Map<String, Integer> employeesRequired, String projectId, String manager,String architect) {
+    public boolean checkEmployeesAvailability(Map<String, Integer> employeesRequired,
+                                              String projectId, String manager,String architect) {
+
         int totalEmployeesAllocated = 0;
 
         for (Map.Entry<String, Integer> entry : employeesRequired.entrySet()) {
@@ -145,17 +151,35 @@ public class DepartmentServiceImpl {
     }
 
     private DepartmentDto convertToDto(DepartmentDetails department) {
-        DepartmentDto dto = new DepartmentDto();
-        dto.setDepartmentId(department.getDepartmentId());
-        dto.setDepartmentName(department.getDepartmentName());
-        dto.setEmployeesAvailable(department.getEmployeesAvailable());
-        return dto;
+        try {
+            DepartmentDto dto = new DepartmentDto();
+            dto.setDepartmentId(department.getDepartmentId());
+            dto.setDepartmentName(department.getDepartmentName());
+            dto.setEmployeesAvailable(department.getEmployeesAvailable());
+            return dto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public boolean departmentExists(String departmentName) {
+    /*public boolean departmentExists(String departmentName) {
         DepartmentDetails exist = departmentRepository.findByDepartmentName(departmentName);
             if (exist !=null)  return true;
         return false;
+    }*/
+
+    public boolean departmentExists(String departmentName) throws NoSuchDepartmentExistException {
+        try {
+            DepartmentDetails exist = departmentRepository.findByDepartmentName(departmentName);
+            if (exist != null) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new NoSuchDepartmentExistException("Department with name '" + departmentName + "' not found.");
+        }
     }
 
     public Object findManagerByName(String manager) {
